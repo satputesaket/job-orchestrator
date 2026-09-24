@@ -8,11 +8,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "jobs")
-public class Job implements Serializable{
+public class Job implements Serializable {
 
 	private static final long serialVersionUID = -3376527802661670725L;
 
@@ -31,6 +33,18 @@ public class Job implements Serializable{
 
 	@Column(name = "updated_at", nullable = false)
 	private LocalDateTime updatedAt;
+
+	@PrePersist
+	protected void onCreate() {
+		LocalDateTime now = LocalDateTime.now();
+		createdAt = now;
+		updatedAt = now;
+	}
+
+	@PreUpdate
+	protected void onUpdate() {
+		updatedAt = LocalDateTime.now();
+	}
 
 	public Job() {
 	}
