@@ -1,0 +1,21 @@
+# Eclipse
+.metadata/
+.classpath
+.project
+.settings/
+
+# Maven
+**/target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Local environment
+.env
