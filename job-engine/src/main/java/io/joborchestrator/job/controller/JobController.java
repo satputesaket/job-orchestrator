@@ -1,9 +1,12 @@
 package io.joborchestrator.job.controller;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import io.joborchestrator.job.Job;
+import io.joborchestrator.job.dto.JobResponse;
 import io.joborchestrator.job.service.JobService;
 
 @RestController
@@ -23,7 +26,12 @@ public class JobController {
     }
     
     @GetMapping("/{id}")
-    public Job getJob(@PathVariable Long id) {
+    public JobResponse getJob(@PathVariable Long id) {
         return jobService.getJob(id);
+    }
+    
+    @GetMapping
+    public List<Job> getAllJobs(@PathVariable Long id) {
+        return jobService.getAllJobs();
     }
 }

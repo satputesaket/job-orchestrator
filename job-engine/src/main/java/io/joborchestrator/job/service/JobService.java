@@ -1,7 +1,13 @@
 package io.joborchestrator.job.service;
 
 import io.joborchestrator.job.JobRepository;
+import io.joborchestrator.job.dto.JobResponse;
+import io.joborchestrator.job.exception.JobNotFoundException;
+import io.joborchestrator.job.mapper.JobMapper;
 import io.joborchestrator.job.Job;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,9 +28,13 @@ public class JobService {
         return jobRepository.save(job);
     }
     
-    public Job getJob(Long id) {
-        return jobRepository.findById(id)
-                .orElseThrow();
+    public JobResponse getJob(Long id) {
+        return jobRepository.findById(id).map(JobMapper::toDto)
+        		.orElseThrow(() -> new JobNotFoundException(id));
+    }
+
+    public List<Job> getAllJobs() {
+        return jobRepository.findAll();
     }
     
 }
